@@ -4,6 +4,8 @@ A Java application that provides a user interface for navigating plots of the Ma
 
 ## TODOs
 
+* Add component to GUI with instructions of how to zoom in and out 
+* Allow user to select region of interest with numerical input
 * Allow users to select colour scheme
 * Parallelize image rendering
 * Add GUI component to indicate to user rendering progress
