@@ -120,8 +120,6 @@ public class App {
     	buttonPanelTwoWrap.add(reset);
     	buttonPanelThreeWrap.add(saveHiResImage);
     	
-    	
-    	
     	mainFrame.setVisible(true);
     }
 
