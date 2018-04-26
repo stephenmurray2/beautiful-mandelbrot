@@ -7,7 +7,6 @@ import javax.swing.border.Border;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -16,25 +15,24 @@ public class App {
 	
     private MandelbrotPanel mandelbrotPanel;
     private JFrame mainFrame;
-    private JPanel centrePanel,controlPanel,renderingPanel;                      
+    private JPanel controlPanel;
+    private JPanel buttonPanelOneWrap,buttonPanelTwoWrap,buttonPanelThreeWrap;
 
     public App() {
         
+    	// Define the colours to be used when rendering the image
     	ColourArray colourArray = new ColourArray();
+    	// Prepare the GUI
         prepareGUI();
-        
     }
     
-   /**
-     * Displays the picture in a window on the screen.
-     */
     public void prepareGUI() {
 
         // create the GUI for viewing the image if needed
         if (mainFrame == null) {
             
             mainFrame = new JFrame("Mandelbrot viewer");
-            mainFrame.setSize(500,500);
+            mainFrame.setSize(500,600);
             mainFrame.getContentPane().setLayout(new BorderLayout());
             mainFrame.addWindowListener(new WindowAdapter() {
                 public void windowClosing(WindowEvent windowEvent){
@@ -49,60 +47,87 @@ public class App {
             Border borderLine = BorderFactory.createLineBorder(Color.black);
             Border compound = BorderFactory.createCompoundBorder(padding, borderLine);
 	      
-            JPanel mandelbrotContainer = new JPanel();
+            JPanel mandelbrotContainer = new JPanel(new BorderLayout());
             mandelbrotContainer.setBorder(compound);
-            mandelbrotContainer.setLayout(new BorderLayout());
+            //mandelbrotContainer.setLayout();
             
             mandelbrotPanel = new MandelbrotPanel();
             mandelbrotContainer.add(mandelbrotPanel);
-            
-            //TODO: add a JLayer object, which can somehow communicate to the user that rendering is occurring
-            
-            controlPanel = new JPanel();
-            controlPanel.setLayout(new GridLayout(2,1));
-            
             centrePanel.add(mandelbrotContainer);
             
+            //TODO: add some sort of JLayer object, which can somehow 
+            // communicate to the user the progress of the image rendering
+            controlPanel = new JPanel();
+            controlPanel.setLayout(new GridLayout(3,1));
+            
+            buttonPanelOneWrap = new JPanel(new FlowLayout());
+            buttonPanelTwoWrap = new JPanel(new FlowLayout());
+            buttonPanelThreeWrap = new JPanel(new FlowLayout());
+            
+            controlPanel.add(buttonPanelOneWrap);
+            controlPanel.add(buttonPanelTwoWrap);
+            controlPanel.add(buttonPanelThreeWrap);
+
             mainFrame.add(centrePanel,BorderLayout.CENTER);
             mainFrame.add(controlPanel, BorderLayout.PAGE_END);
-            
-            //mainFrame.add(mandelbrotContainer);
             
         }
 
         mainFrame.setVisible(true);
-        // frame.repaint();
     }
     
     public void show() {
     	
-    	JButton download = new JButton("Save high resolution image");
-    	download.addActionListener(new ActionListener() {
-	         
+    	JButton saveHiResImage = new JButton("Save high resolution image");
+    	JButton reset = new JButton("Reset");
+    	JButton zoomIn = new JButton("Zoom +");
+    	JButton zoomOut = new JButton("Zoom -");
+    	
+    	saveHiResImage.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
 				 
 				 try {
-					    // retrieve image
-					 	File dir = new File("gallery/");
-					 	File outputfile = File.createTempFile("Mandelbrot", ".png", dir);
-					    //File outputfile = new File("gallery/Mandelbrot3.png");
-					    ImageIO.write( MandelbrotPanel.generateHiResImage(), "png", outputfile);
-					 } catch (IOException ex) {
-					    
-					    
-					}
-					
+				 	File dir = new File("gallery/");
+				 	File outputfile = File.createTempFile("Mandelbrot", ".png", dir);
+				    ImageIO.write( MandelbrotPanel.generateHiResImage(), "png", outputfile);
+				 } catch (IOException ex) {
+				    ex.printStackTrace();
+				 }
 	         }          
 	      });
     	
-    	controlPanel.add(download);
+    	reset.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 mandelbrotPanel.reset();
+	         }          
+	      });
+    	
+    	zoomIn.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 mandelbrotPanel.zoomIn();
+	         }          
+	      });
+    	
+    	zoomOut.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 mandelbrotPanel.zoomOut();
+	         }          
+	      });
+    	
+    	
+    	buttonPanelOneWrap.add(zoomIn);
+    	buttonPanelOneWrap.add(zoomOut);
+    	buttonPanelTwoWrap.add(reset);
+    	buttonPanelThreeWrap.add(saveHiResImage);
+    	
+    	
+    	
     	mainFrame.setVisible(true);
     }
 
 
     public static void main(String[] args) {
         App app = new App();
-        //System.out.printf("%d-by-%d\n", picture.width(), picture.height());
         app.show();
     }
 

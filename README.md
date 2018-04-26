@@ -1,6 +1,15 @@
 ### Beautiful Mandelbrot
 
-A Java application that provides a user interface for navigating plots of the Mandelbrot set.
+A Java application that provides a user interface for 'navigating' a visualization of the Mandelbrot set.
+A low resolution image is given for  
+
+## Instructions
+
+# To zoom in:
+Press the "Zoom +" button, or double click or scroll up over a point on the image 
+
+# To zoom out:
+Press the "Zoom -" button, or scroll down over a point on in the image
 
 ## TODOs
 
