@@ -13,10 +13,10 @@ import javax.imageio.ImageIO;
 
 public class App {
 	
-    private MandelbrotPanel mandelbrotPanel;
-    private JFrame mainFrame;
-    private JPanel controlPanel;
-    private JPanel buttonPanelOneWrap,buttonPanelTwoWrap,buttonPanelThreeWrap;
+    MandelbrotPanel mandelbrotPanel;
+    JFrame mainFrame;
+    JPanel controlPanel;
+    JPanel buttonPanelOneWrap,buttonPanelTwoWrap,buttonPanelThreeWrap;
 
     public App() {
         
