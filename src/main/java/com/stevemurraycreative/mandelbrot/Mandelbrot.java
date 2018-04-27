@@ -54,7 +54,7 @@ public class Mandelbrot {
 	        }
 	    }
 	    
-	    // The colour array is smoothed, two avoid abrupt changes of colour
+	    // The colour array is smoothed, to avoid abrupt changes of colour
 	    // between neighbouring pixels
 	    for (int i = 0; i < w; i++) {
 			for (int j = 0; j < w; j++) {
