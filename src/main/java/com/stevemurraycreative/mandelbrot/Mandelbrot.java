@@ -36,7 +36,7 @@ public class Mandelbrot {
 	public static void drawMandelbrot(BufferedImage image,int w)  {
 	        
 	    double rangeMin = -width/(2*w);
-	    double rangeMax = +width/(2*w);
+	    double rangeMax = width/(2*w);
 	    double temp,count;
 		int buffer = (int) Math.floor(kernelWidth/2.0);
 	    
